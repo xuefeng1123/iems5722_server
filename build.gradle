@@ -15,7 +15,11 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.projectlombok:lombok:1.18.20'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
+    runtimeOnly 'mysql:mysql-connector-java'
+    implementation 'com.alibaba:fastjson:1.2.76'
+
 }
 
 test {
