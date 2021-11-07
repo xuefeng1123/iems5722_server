@@ -1,5 +1,6 @@
 package hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.Entity;
 
+import lombok.Data;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -27,4 +28,11 @@ public class Chatroom {
     private Set<User> members;
 
 
+    public Integer getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

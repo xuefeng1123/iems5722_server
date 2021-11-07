@@ -18,4 +18,8 @@ public class User {
 
     @ManyToMany
     Set<Chatroom> joinedChatrooms;
+
+    public String getName() {
+        return name;
+    }
 }
