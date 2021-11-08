@@ -12,4 +12,5 @@ import java.util.List;
 public interface MessageRepository extends PagingAndSortingRepository<Message,Integer> {
     public List<Message> findAllByChatroomIdOrderByTime(int chatroomId);
     public List<Message> findAllByChatroomIdOrderByTime(Pageable pageable);
+
 }

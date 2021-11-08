@@ -2,10 +2,9 @@ package hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.Entity;
 
 import lombok.Getter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.Instant;
 
 @Table(name = "message")
@@ -13,6 +12,7 @@ import java.time.Instant;
 public class Message {
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
     private Integer id;
 
@@ -30,7 +30,7 @@ public class Message {
 
     @Getter
     @Column(name = "time", nullable = false)
-    private Instant time;
+    private Timestamp time;
 
     public Integer getId() {
         return id;
@@ -64,11 +64,11 @@ public class Message {
         this.content = content;
     }
 
-    public Instant getTime() {
+    public Timestamp getTime() {
         return time;
     }
 
-    public void setTime(Instant time) {
+    public void setTime(Timestamp time) {
         this.time = time;
     }
 }

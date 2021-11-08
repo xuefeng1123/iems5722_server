@@ -24,4 +24,12 @@ public class MainController {
     public String getChatrooms(){
         return chatroomService.getChatrooms();
     }
+
+    @RequestMapping(value="/send_message",method=RequestMethod.POST)
+    public String sendMessage(@RequestParam("chatroom_id") int chatroom_id,
+                              @RequestParam("user_id") int user_id,
+                              @RequestParam("name") String name,
+                              @RequestParam("message") String message){
+        return messageService.addMessage(chatroom_id, user_id, message);
+    }
 }
