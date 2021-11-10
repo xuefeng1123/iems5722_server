@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface MessageRepository extends PagingAndSortingRepository<Message,Integer> {
-    public List<Message> findAllByChatroomIdOrderByTime(int chatroomId);
+    public List<Message> findAllByChatroomIdOrderByTimeDesc(int chatroomId);
     public List<Message> findAllByChatroomIdOrderByTime(Pageable pageable);
 
 }

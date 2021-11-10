@@ -31,7 +31,7 @@ public class MessageService {
     private UserRepository userRepository;
 
     public String getMessage(int chatroomId, int page){
-        List<Message> messages = messageRepository.findAllByChatroomIdOrderByTime(chatroomId);
+        List<Message> messages = messageRepository.findAllByChatroomIdOrderByTimeDesc(chatroomId);
         int totalSize = messages.size();
         JSONArray jsonArray = JSONArray.parseArray(JSON.toJSONString(messages));
         List<JSONObject> messagesResults =  jsonArray.stream().filter(json -> json instanceof JSONObject)
@@ -61,7 +61,15 @@ public class MessageService {
         return JSON.toJSONString(jsonResult);
     }
 
-    public String addMessage(int chatroom_id, int user_id, String message){
+    public String addMessage(int chatroom_id, int user_id, String name, String message){
+        List<User> users = userRepository.findAllById(user_id);
+        if(users.size() == 0){
+            User user = new User();
+            user.setId(user_id);
+            user.setName(name);
+            userRepository.saveAndFlush(user);
+        }
+
         Message m = new Message();
         m.setChatroomId(chatroom_id);
         m.setUserId(user_id);
