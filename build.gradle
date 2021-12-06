@@ -11,11 +11,18 @@ sourceCompatibility = '11'
 repositories {
     mavenCentral()
 }
+configurations {
 
+    compileOnly {
+
+        extendsFrom annotationProcessor
+    }
+}
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.projectlombok:lombok:1.18.20'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
     runtimeOnly 'mysql:mysql-connector-java'
     implementation 'com.alibaba:fastjson:1.2.76'

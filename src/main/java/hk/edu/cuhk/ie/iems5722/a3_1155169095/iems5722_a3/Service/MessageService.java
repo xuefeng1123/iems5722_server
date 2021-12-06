@@ -7,11 +7,10 @@ import hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.Entity.Message;
 import hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.Entity.User;
 import hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.Repository.MessageRepository;
 import hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.Repository.UserRepository;
-import org.apache.tomcat.jni.Time;
+import hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.Util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -77,9 +76,10 @@ public class MessageService {
         m.setContent(message);
         messageRepository.save(m);
 
-        JSONObject jsonResult = new JSONObject();
-        jsonResult.put("status", OK);
-        return JSON.toJSONString(jsonResult);
+//        JSONObject jsonResult = new JSONObject();
+//        jsonResult.put("status", OK);
+//        return JSON.toJSONString(jsonResult);
+        return Response.ReturnOK();
     }
 
     static public String convertFormat(String originTime){

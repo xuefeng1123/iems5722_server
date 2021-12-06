@@ -2,15 +2,18 @@ package hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.Controller;
 
 import hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.Service.ChatroomService;
 import hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.Service.MessageService;
+import hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.Service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping(path="/api/a3")
+@RequestMapping(path="/api/a4")
 public class MainController {
     @Autowired
     private MessageService messageService;
+    @Autowired
+    private TokenService tokenService;
     @Autowired
     private ChatroomService chatroomService;
     @RequestMapping(method = RequestMethod.GET, value = "/get_messages")
@@ -32,5 +35,12 @@ public class MainController {
                               @RequestParam("name") String name,
                               @RequestParam("message") String message){
         return messageService.addMessage(chatroom_id, user_id, name, message);
+    }
+
+    @RequestMapping(value="/submit_push_token",method=RequestMethod.POST)
+    @ResponseBody
+    public String sendToken(@RequestParam("user_id") int user_id,
+                              @RequestParam("token") String token){
+        return tokenService.sendToken(user_id,token);
     }
 }
