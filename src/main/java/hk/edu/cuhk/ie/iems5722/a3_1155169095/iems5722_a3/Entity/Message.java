@@ -1,6 +1,9 @@
 package hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.Entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -9,6 +12,9 @@ import java.time.Instant;
 
 @Table(name = "message")
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder(toBuilder = true)
 public class Message {
     @Id
     @Column(name = "id", nullable = false)

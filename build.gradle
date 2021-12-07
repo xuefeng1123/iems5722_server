@@ -27,6 +27,8 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java'
     implementation 'com.alibaba:fastjson:1.2.76'
 
+    implementation 'com.google.firebase:firebase-admin:8.1.0'
+
 }
 
 test {
