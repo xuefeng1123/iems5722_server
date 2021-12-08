@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface ChatroomRepository extends JpaRepository<Chatroom, Integer> {
-    public Chatroom getChatroomById(int chatroom_id);
     public List<Chatroom> findAll();
+    public List<Chatroom> findAllById(int chatroom_id);
 }

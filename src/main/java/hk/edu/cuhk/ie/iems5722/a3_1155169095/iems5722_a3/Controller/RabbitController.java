@@ -17,8 +17,8 @@ public class RabbitController {
      */
     @GetMapping("/12many")
     public void one2Many(){
-        for (int i = 0; i < 4; i++) {
-            msgSender.send("第[" + (i + 1) + "]个 ---------> ");
-        }
+//        for (int i = 0; i < 4; i++) {
+//            msgSender.send("第[" + (i + 1) + "]个 ---------> ");
+//        }
     }
 }

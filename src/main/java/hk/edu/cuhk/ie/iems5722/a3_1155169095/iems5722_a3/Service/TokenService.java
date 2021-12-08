@@ -13,14 +13,16 @@ public class TokenService {
 
     public String sendToken(int userId, String tokenStr){
         try{
-            Token token = Token.builder()
-                    .userId(userId)
-                    .tokenStr(tokenStr)
-                    .build();
-            tokenRepository.saveAndFlush(token);
-            return Response.ReturnOK();
-        }catch(Exception e){
-            return Response.ReturnError(e.getMessage());
-        }
+            if(!tokenRepository.existsAllByUserIdAndTokenStr(userId, tokenStr)) {
+                Token token = Token.builder()
+                        .userId(userId)
+                        .tokenStr(tokenStr)
+                        .build();
+                tokenRepository.saveAndFlush(token);
+            }
+            }catch(Exception e) {
+                return Response.ReturnError(e.getMessage());
+            }
+        return Response.ReturnOK();
     }
 }

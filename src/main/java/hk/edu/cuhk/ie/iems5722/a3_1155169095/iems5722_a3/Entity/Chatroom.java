@@ -35,4 +35,9 @@ public class Chatroom {
     public String getName() {
         return name;
     }
+
+    public Set<User> getMembers() {
+        return members;
+    }
+
 }

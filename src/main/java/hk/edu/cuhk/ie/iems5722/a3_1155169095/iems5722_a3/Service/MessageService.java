@@ -3,9 +3,11 @@ package hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.Service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.Entity.Message;
-import hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.Entity.User;
+import hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.Entity.*;
+import hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.MQ.MsgSender;
+import hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.Repository.ChatroomRepository;
 import hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.Repository.MessageRepository;
+import hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.Repository.TokenRepository;
 import hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.Repository.UserRepository;
 import hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.Util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,6 +31,12 @@ public class MessageService {
     private MessageRepository messageRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ChatroomRepository chatroomRepository;
+    @Autowired
+    private TokenRepository tokenRepository;
+    @Autowired
+    MsgSender msgSender;
 
     public String getMessage(int chatroomId, int page){
         List<Message> messages = messageRepository.findAllByChatroomIdOrderByTimeDesc(chatroomId);
@@ -45,7 +54,7 @@ public class MessageService {
                     jsonObject.put("message", ((JSONObject)json).get("content"));
                     jsonObject.put("name", user.getName());
                     jsonObject.put("message_time", sdf.format(timestamp));
-                    jsonObject.put("user_id", ((JSONObject)json).get("id"));
+                    jsonObject.put("user_id", user.getId());
                     return jsonObject;
 
         }).collect(Collectors.toList());
@@ -60,9 +69,10 @@ public class MessageService {
         return JSON.toJSONString(jsonResult);
     }
 
-    public String addMessage(int chatroom_id, int user_id, String name, String message){
+    public String addMessage(int chatroom_id, int user_id, String name, String message) {
+
         List<User> users = userRepository.findAllById(user_id);
-        if(users.size() == 0){
+        if (users.size() == 0) {
             User user = new User();
             user.setId(user_id);
             user.setName(name);
@@ -76,12 +86,18 @@ public class MessageService {
         m.setContent(message);
         messageRepository.save(m);
 
-//        JSONObject jsonResult = new JSONObject();
-//        jsonResult.put("status", OK);
-//        return JSON.toJSONString(jsonResult);
+        List<Chatroom> chatrooms = chatroomRepository.findAllById(chatroom_id);
+        if (chatrooms.size() == 1){
+            List<Integer> notifyUsers = chatrooms.get(0).getMembers().stream().map(User::getId).collect(Collectors.toList());
+            msgSender.send(FBNotification.builder()
+                    .message(m)
+                    .tokens(tokenRepository.findTokensByUserIdIn(notifyUsers).stream().map(Token::getTokenStr).toList())
+                    .chatroomName(chatroomRepository.findAllById(m.getChatroomId()).get(0).getName())
+                    .senderName(userRepository.findAllById(m.getUserId()).get(0).getName())
+                    .build());
+        }
         return Response.ReturnOK();
     }
-
     static public String convertFormat(String originTime){
         return originTime.replace('T', ' ').substring(0,originTime.length() - 1);
     }

@@ -208,6 +208,7 @@ public class FireBaseUtil {
         //构建消息
         Message message = Message.builder()
                 .setNotification(Notification.builder().setTitle(title).setBody(body).build())
+                .putData("topic", topic)
                 .setTopic(topic)
                 .build();
         //发送后，返回messageID

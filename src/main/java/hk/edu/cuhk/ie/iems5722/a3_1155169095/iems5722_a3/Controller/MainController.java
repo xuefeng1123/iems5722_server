@@ -1,5 +1,6 @@
 package hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.Controller;
 
+import hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.MQ.MsgSender;
 import hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.Service.ChatroomService;
 import hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.Service.MessageService;
 import hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.Service.TokenService;

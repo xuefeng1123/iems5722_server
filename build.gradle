@@ -6,7 +6,7 @@ plugins {
 
 group = 'hk.edu.cuhk.ie.iems5722.a3_1155169095'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = "16"
 
 repositories {
     mavenCentral()
@@ -35,3 +35,4 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+targetCompatibility = JavaVersion.VERSION_16
