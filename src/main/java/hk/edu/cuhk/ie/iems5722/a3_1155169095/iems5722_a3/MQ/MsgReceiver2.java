@@ -19,12 +19,9 @@ public class MsgReceiver2 {
     public void process(Message message, Channel channel) throws IOException {
         try{
             FBNotification notification = (FBNotification) RabbitMQUtil.getObjectFromBytes(message.getBody());
-            System.out.println("Receiver1  : " + new String(message.getBody()));
-//            String token = "dw2XSal8Rrq0bQwYL7Pq8y:APA91bFsDvfUzHZwrH5oVyKtF5JSdpCUCSWDOX3yPNbC1K52OJ4w3NijcXmZtu25TTEstBOaIBE23YTfDht3_NErbUVHrg1fdL1S-bsC9UySHjwecOeTXLkv3lfMV-lRNd-Y80TXxRhn";
-//            tokens.add(token);
+            System.out.println("Receiver2  : " + new String(message.getBody()));
             FireBaseUtil.registrationTopic(notification.getTokens(), notification.getMessage().getChatroomId().toString());
-            FireBaseUtil.sendTopicMes(notification.message.getChatroomId().toString(),
-                    notification.chatroomName,
+            FireBaseUtil.sendTopicMes(notification.getMessage().getChatroomId().toString(), notification.chatroomName,
                     notification.getSenderName() + " : " + notification.getMessage().getContent());
         }catch (Exception e){
             e.printStackTrace();
