@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class MapEventDetail {
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "title", nullable = false, length = 100)

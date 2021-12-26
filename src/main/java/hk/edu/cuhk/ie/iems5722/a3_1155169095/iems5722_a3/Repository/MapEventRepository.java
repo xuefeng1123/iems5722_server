@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface MapEventRepository extends JpaRepository<MapEvent, Integer> {
     public List<MapEvent> findAll();
+    public List<MapEvent> findAllById(Integer id);
 }

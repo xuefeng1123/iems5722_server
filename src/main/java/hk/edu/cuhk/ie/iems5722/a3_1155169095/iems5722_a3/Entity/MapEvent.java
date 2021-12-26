@@ -22,10 +22,22 @@ public class MapEvent {
     @Column(name = "event_snippet", nullable = false, length = 100)
     private String eventSnippet;
 
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "map_event_detail_id")
     private MapEventDetail mapEventDetail;
 
+    public Anchor getAnchor() {
+        return anchor;
+    }
+
+    public void setAnchor(Anchor anchor) {
+        this.anchor = anchor;
+    }
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "anchor_id")
+    private Anchor anchor;
 
     public String getEventSnippet() {
         return eventSnippet;
@@ -65,5 +77,12 @@ public class MapEvent {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+    public MapEventDetail getMapEventDetail() {
+        return mapEventDetail;
+    }
+
+    public void setMapEventDetail(MapEventDetail mapEventDetail) {
+        this.mapEventDetail = mapEventDetail;
     }
 }

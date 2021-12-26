@@ -2,7 +2,9 @@ package hk.edu.cuhk.ie.iems5722.a3_1155169095.iems5722_a3.Entity;
 
 import javax.persistence.*;
 
-@Table(name = "anchor")
+@Table(name = "anchor", indexes = {
+        @Index(name = "anchorId_UNIQUE", columnList = "anchorId", unique = true)
+})
 @Entity
 public class Anchor {
     @Id
@@ -12,6 +14,9 @@ public class Anchor {
 
     @Column(name = "anchorId", nullable = false, length = 100)
     private String anchorId;
+
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "anchor")
+    private MapEvent mapEvent;
 
     public String getAnchorId() {
         return anchorId;
